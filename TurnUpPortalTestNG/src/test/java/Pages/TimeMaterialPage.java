@@ -1,11 +1,10 @@
 package Pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import Utilities.Wait;
+import org.openqa.selenium.*;
 import org.testng.Assert;
 
-public class TimeMaterialPage
+public class TimeMaterialPage extends Wait
 {
     private final By createNewButtonLocator = By.xpath("//*[@id='container']/p/a");
     WebElement createNewButton;
@@ -36,13 +35,10 @@ public class TimeMaterialPage
     private final By deleteButtonLocator = By.xpath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]");
     WebElement deleteButton;
 
-    //Method To Create Time Record
     public void createNewTimeRecord(WebDriver driver) throws InterruptedException {
         try
         {
-            Thread.sleep(2000);
-            //Wait.WaitToBeVisible(driver, "XPath", "//*[@id='container']/p/a",6);
-            // Click on Create Button
+            Wait.waitToBeVisible(driver, "xpath", "//*[@id='container']/p/a",6);
             createNewButton = driver.findElement(createNewButtonLocator);
             createNewButton.click();
         }
@@ -51,54 +47,37 @@ public class TimeMaterialPage
             Assert.fail("Create New Button is not selectable" + ex.getMessage());
         }
 
-        //Select Time from the TypeCode dropdown
-        //Wait.WaitToBeVisible(driver, "XPath", "//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]/span", 6);
-        Thread.sleep(2000);
+        Wait.waitToBeVisible(driver, "xpath", "//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]/span", 6);
         typeCodeButton = driver.findElement(typeCodeButtonLocator);
         typeCodeButton.click();
-        Thread.sleep(2000);
-        //Wait.WaitToBeVisible(driver, "XPath", "//*[@id='TypeCode_listbox']/li[2]", 6);
+        Wait.waitToBeVisible(driver, "xpath", "//*[@id='TypeCode_listbox']/li[2]", 6);
         timeOption = driver.findElement(timeOptionLocator);
         timeOption.click();
 
-        //Enter Code into Code text box
         codeTextbox = driver.findElement(codeTextboxLocator);
         codeTextbox.sendKeys("TimeModule");
 
-        //Enter Description into Description text box
         descriptionTextbox = driver.findElement(descriptionTextboxLocator);
         descriptionTextbox.sendKeys("New Time Module");
 
-        //Enter Price per unit into Price text box
-        //Wait.WaitToBeVisible(driver, "XPath", "//*[@id='TimeMaterialEditForm']/div/div[4]/div/span[1]/span/input[1]", 6);
-        Thread.sleep(2000);
-        //Identify overlapping element
+        Wait.waitToBeVisible(driver, "xpath", "//*[@id='TimeMaterialEditForm']/div/div[4]/div/span[1]/span/input[1]", 6);
         overlapTextbox = driver.findElement(overlapTextboxLocator);
         overlapTextbox.click();
 
-        //Identifying the price web element
         priceTextbox = driver.findElement(priceTextboxLocator);
         priceTextbox.sendKeys("100");
 
-        //File Upload
         fileInput = driver.findElement(fileInputLocator);
         fileInput.sendKeys("D:/Eba/Industry Connect/DemoImage.jpg");
 
-        //Explicit Wait
-        //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-        //wait.Until(ExpectedConditions.ElementIsVisible(saveButtonLocator));
-        Thread.sleep(2000);
+        Wait.waitToBeVisible(driver,"id","SaveButton",6);
 
-        //Click on the Save button
         saveButton = driver.findElement(saveButtonLocator);
         saveButton.click();
-       // Wait.WaitToBeVisible(driver, "XPath", "//*[@id=\"tmsGrid\"]/div[4]", 6);
-        Thread.sleep(1000);
-        //Click on Go to last Page button
+        Wait.waitToBeVisible(driver, "xpath", "//*[@id=\"tmsGrid\"]/div[4]", 6);
         try
         {
-            Thread.sleep(2000);
-            //Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]/span", 6);
+            Wait.waitToBeVisible(driver, "xpath", "//*[@id='tmsGrid']/div[4]/a[4]/span", 6);
             goToLastPage = driver.findElement(goToLastPageLocator);
             goToLastPage.click();
         }
@@ -108,7 +87,7 @@ public class TimeMaterialPage
         }
         String actualCode=getCode(driver);
         String expectedCode="TimeModule";
-        Assert.assertEquals(actualCode,expectedCode);
+        Assert.assertEquals(actualCode,expectedCode,"Actual code and Expected code does not match");
     }
 
     public String getCode(WebDriver driver)
@@ -117,15 +96,11 @@ public class TimeMaterialPage
         return newTimeModule.getText();
     }
 
-    //Method To Edit Time Record
-    public void editTimeRecord(WebDriver driver) throws InterruptedException {
+    public void editTimeRecord(WebDriver driver) throws InterruptedException
+    {
         Thread.sleep(1000);
-        //Wait.WaitToBeVisible(driver, "XPath", "//*[@id=\"tmsGrid\"]/div[4]", 6);
         try
         {
-            //Go To Last Page Button
-            //Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]/span", 6);
-            Thread.sleep(3000);
             goToLastPage = driver.findElement(goToLastPageLocator);
             goToLastPage.click();
         }
@@ -133,40 +108,30 @@ public class TimeMaterialPage
         {
             Assert.fail("GoToLastPage Button is not selectable" + ex.getMessage());
         }
-        Thread.sleep(2000);
-        //Click on Edit Button
-        //Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]", 5);
+        Wait.waitToBeVisible(driver, "xpath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[1]", 5);
         editButton = driver.findElement(editButtonLocator);
         editButton.click();
 
-        //Edit the TypeCode
-        //Wait.WaitToBeClickable(driver, "XPath", "//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]/span", 7);
-        Thread.sleep(2000);
+        Wait.waitToBeClickable(driver, "xpath", "//*[@id='TimeMaterialEditForm']/div/div[1]/div/span[1]/span", 7);
         typeCodeButton = driver.findElement(typeCodeButtonLocator);
         typeCodeButton.click();
-        Thread.sleep(2000);
-        //Wait.WaitToBeClickable(driver, "XPath", "//*[@id='TypeCode_listbox']/li[1]", 7);
+        Wait.waitToBeClickable(driver, "xpath", "//*[@id='TypeCode_listbox']/li[1]", 7);
         materialOption = driver.findElement(materialOptionLocator);
         materialOption.click();
 
-        //Edit the Code
         codeTextbox = driver.findElement(codeTextboxLocator);
         codeTextbox.clear();
         codeTextbox.sendKeys("EditedTimeModule");
 
-        //Edit Description
         descriptionTextbox = driver.findElement(descriptionTextboxLocator);
         descriptionTextbox.clear();
         descriptionTextbox.sendKeys("Time Module is edited");
-        //Wait.WaitToBeVisible(driver, "XPath", "//*[@id='TimeMaterialEditForm']/div/div[4]/div/span[1]/span/input[1]", 5);
-        Thread.sleep(3000);
-        //Edit Price
+        Wait.waitToBeVisible(driver, "xpath", "//*[@id='TimeMaterialEditForm']/div/div[4]/div/span[1]/span/input[1]", 5);
         try
         {
             overlapTextbox = driver.findElement(overlapTextboxLocator);
             overlapTextbox.click();
-            Thread.sleep(3000);
-           // Wait.WaitToBeVisible(driver, "Id", "Price", 5);
+            Wait.waitToBeVisible(driver, "id", "Price", 5);
             priceTextbox = driver.findElement(priceTextboxLocator);
             priceTextbox.clear();
             overlapTextbox.click();
@@ -177,22 +142,15 @@ public class TimeMaterialPage
             Assert.fail("Price textbox is not interactable" + ex.getMessage());
         }
 
-        //File Upload
         fileInput = driver.findElement(fileInputLocator);
         fileInput.sendKeys("D:/Eba/Industry Connect/Demo2.jpg");
-
-        //Wait.WaitToBeVisible(driver, "Id", "SaveButton", 5);
-        Thread.sleep(2000);
-        //Click on the Save button
+        Wait.waitToBeVisible(driver, "Id", "SaveButton", 5);
         saveButton = driver.findElement(saveButtonLocator);
         saveButton.click();
-        Thread.sleep(1000);
-        // Wait.WaitToBeVisible(driver, "XPath", "//*[@id=\"tmsGrid\"]/div[4]", 6);
+        Wait.waitToBeVisible(driver, "xpath", "//*[@id=\"tmsGrid\"]/div[4]", 6);
         try
         {
-            //Go To Last Page
-            //Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]/span", 6);
-            Thread.sleep(2000);
+            Wait.waitToBeVisible(driver, "xpath", "//*[@id='tmsGrid']/div[4]/a[4]/span", 6);
             goToLastPage = driver.findElement(goToLastPageLocator);
             goToLastPage.click();
         }
@@ -202,18 +160,14 @@ public class TimeMaterialPage
         }
         String actualCode=getCode(driver);
         String expectedCode="EditedTimeModule";
-        Assert.assertEquals(actualCode,expectedCode);
+        Assert.assertEquals(expectedCode,actualCode,"Actual code and expected code do not match");
     }
 
-    //Method To Delete Time Record
-    public void deleteTimeRecord(WebDriver driver) throws InterruptedException {
+    public void deleteTimeRecord(WebDriver driver) throws InterruptedException
+    {
         Thread.sleep(1000);
-        //Delete newly created time module
         try
         {
-            //Go To Last Page Button
-            //Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]/span", 6);
-            Thread.sleep(2000);
             goToLastPage = driver.findElement(goToLastPageLocator);
             goToLastPage.click();
         }
@@ -221,19 +175,15 @@ public class TimeMaterialPage
         {
             Assert.fail("GoToLastPage Button is not selectable" + ex.getMessage());
         }
-
-        //Click on the delete button
+        Wait.waitToBeVisible(driver,"xpath","//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[5]/a[2]",6);
         deleteButton = driver.findElement(deleteButtonLocator);
         deleteButton.click();
-
-        //Handle pop up dialog box
         driver.switchTo().alert().accept();
         driver.navigate().refresh();
-
         try
         {
-            Thread.sleep(2000);
-            //Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[4]/a[4]/span", 6);
+
+            Wait.waitToBeVisible(driver, "xpath", "//*[@id='tmsGrid']/div[4]/a[4]/span", 6);
             goToLastPage = driver.findElement(goToLastPageLocator);
             goToLastPage.click();
         }
@@ -241,12 +191,9 @@ public class TimeMaterialPage
         {
             Assert.fail("GoToLastPageButton is not selectable" + ex.getMessage());
         }
-
-        //Wait.WaitToBeVisible(driver, "XPath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]", 5);
-        Thread.sleep(2000);
-        //Check if the time module is deleted
+        Wait.waitToBeVisible(driver, "xpath", "//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]", 5);
         String actualCode=getCode(driver);
         String expectedCode="EditedTimeModule";
-        Assert.assertNotEquals(actualCode,expectedCode);
+        Assert.assertNotEquals(actualCode,expectedCode,"Time record is not deleted");
     }
 }

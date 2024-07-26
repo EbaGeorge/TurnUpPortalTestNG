@@ -1,42 +1,38 @@
 package Tests;
 
 import Pages.*;
+import Utilities.CommonDriver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 
-public class TimeMaterialTest
+public class TimeMaterialTest extends CommonDriver
 {
-    WebDriver driver;
     @BeforeMethod
     public void setUpSteps()
     {
         driver=new ChromeDriver();
-        //Login Page Object initialization and definition
         LoginPage loginPageObj = new LoginPage();
         loginPageObj.loginActions(driver);
-
-        //Home Page Object initialization and definition
         HomePage homePageObj = new HomePage();
         homePageObj.userVerification(driver);
         homePageObj.navigationToTimeAndMaterialPage(driver);
     }
-    @Test(priority=0)
-    public void createTimeModule() throws InterruptedException {
-        //Time and Material Page Object initialization and definition
+    @Test(priority=0,description = "This test is to create Time module")
+    public void createTimeModule() throws InterruptedException
+    {
         TimeMaterialPage timeMaterialObj = new TimeMaterialPage();
-        //Create Time Record
         timeMaterialObj.createNewTimeRecord(driver);
     }
-    @Test(priority=1)
-    public void editTimeModule() throws InterruptedException {
-        //Edit Time Record
+    @Test(priority=1,description = "This test is to edit Time module")
+    public void editTimeModule() throws InterruptedException
+    {
         TimeMaterialPage timeMaterialObj = new TimeMaterialPage();
         timeMaterialObj.editTimeRecord(driver);
     }
-    @Test(priority=2)
-    public void deleteTimeModule() throws InterruptedException {
-        //Delete Time Record
+    @Test(priority=2,description = "This test is to delete Time Module")
+    public void deleteTimeModule() throws InterruptedException
+    {
         TimeMaterialPage timeMaterialObj = new TimeMaterialPage();
         timeMaterialObj.deleteTimeRecord(driver);
     }

@@ -1,11 +1,11 @@
 package Pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import Utilities.Wait;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 
-public class HomePage
+public class HomePage extends Wait
 {
     private final By timeMaterialOptionLocator = By.xpath("/html/body/div[3]/div/div/ul/li[5]/ul/li[3]/a");
     private final By adminTabLocator=By.xpath("/html/body/div[3]/div/div/ul/li[5]/a");
@@ -13,14 +13,9 @@ public class HomePage
     {
         try
         {
-            // Navigate to Time and Material Page
             WebElement administartionTab = driver.findElement(adminTabLocator);
             administartionTab.click();
-            Thread.sleep(2000);
-            //WebDriverWait webDriverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-            //webDriverWait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(timeMaterialOptionLocator));
-
-            //Click on Time and Material Page
+            Wait.waitToBeVisible(driver,"xpath","/html/body/div[3]/div/div/ul/li[5]/ul/li[3]/a",5);
             WebElement timeAndMaterialModule = driver.findElement(timeMaterialOptionLocator);
             timeAndMaterialModule.click();
         }
@@ -31,22 +26,16 @@ public class HomePage
     }
     public void userVerification(WebDriver driver)
     {
-        //Check if the user has logged in successfully
-        WebElement helloHari = driver.findElement(By.xpath("//*[@id='logoutForm']/ul/li/a"));
-
+       WebElement helloHari = driver.findElement(By.xpath("//*[@id='logoutForm']/ul/li/a"));
        String actualCode=helloHari.getText();
        String expectedCode="Hello hari!";
        Assert.assertEquals(actualCode,expectedCode);
     }
     public void navigationToEmployeesPage(WebDriver driver)
     {
-        //Navigate to Employees page
         WebElement administartionTabEmployee = driver.findElement(By.xpath("/html/body/div[3]/div/div/ul/li[5]/a"));
         administartionTabEmployee.click();
-
-        //Click on Employees tab
         WebElement employeeTab = driver.findElement(By.xpath("/html/body/div[3]/div/div/ul/li[5]/ul/li[2]/a"));
         employeeTab.click();
-
     }
 }
