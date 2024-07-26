@@ -2,7 +2,6 @@ package Pages;
 
 import Utilities.Wait;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 
 public class HomePage extends Wait
